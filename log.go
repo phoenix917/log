@@ -8,8 +8,6 @@ import (
 	"github.com/sirupsen/logrus"
 	"os"
 	"path"
-	"path/filepath"
-	"strings"
 	"time"
 )
 
@@ -49,13 +47,17 @@ func init() {
 }
 
 func currentDirectory() string {
-	dir, _ := filepath.Abs(filepath.Dir(os.Args[0]))
-	return strings.Replace(dir, "\\", "/", -1)
-        //return "./"
+	//dir, _ := filepath.Abs(filepath.Dir(os.Args[0]))
+	//return strings.Replace(dir, "\\", "/", -1)
+        return "./"
 }
 
 func customConfig() (fileName string, level logrus.Level) {
-	cfg := path.Join(currentDirectory(), "config.ini")
+	cfg, err := config.ReadDefault("config.ini")
+
+	if cfg == nil || err != nil {
+		return "", logrus.InfoLevel
+	}
 
 	fn, _ := cfg.String("log", "filename")
 
