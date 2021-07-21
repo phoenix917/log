@@ -47,9 +47,9 @@ func init() {
 }
 
 func currentDirectory() string {
-	//dir, _ := filepath.Abs(filepath.Dir(os.Args[0]))
-	//return strings.Replace(dir, "\\", "/", -1)
-        return "./"
+	dir, _ := filepath.Abs(filepath.Dir(os.Args[0]))
+	return strings.Replace(dir, "\\", "/", -1)
+        //return "./"
 }
 
 func customConfig() (fileName string, level logrus.Level) {
