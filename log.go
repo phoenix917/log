@@ -55,11 +55,7 @@ func currentDirectory() string {
 }
 
 func customConfig() (fileName string, level logrus.Level) {
-	cfg, err := config.ReadDefault("config.ini")
-
-	if cfg == nil || err != nil {
-		return "", logrus.InfoLevel
-	}
+	cfg := path.Join(currentDirectory(), "config.ini")
 
 	fn, _ := cfg.String("log", "filename")
 
